@@ -30,7 +30,7 @@ public abstract class PersistenceManager {
                 persistenceManager  = new FlatFilePersistenceManager(context);
                 break;
             case REST:
-                persistenceManager=new RestPersistenceManager();
+                persistenceManager=new RestPersistenceManager(context);
                 break;
 
             case SQL:

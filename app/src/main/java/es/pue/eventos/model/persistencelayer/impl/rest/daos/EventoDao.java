@@ -1,5 +1,7 @@
 package es.pue.eventos.model.persistencelayer.impl.rest.daos;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -19,11 +21,18 @@ import java.util.List;
 import es.pue.eventos.model.businesslayer.entities.Evento;
 import es.pue.eventos.model.businesslayer.entities.Participante;
 import es.pue.eventos.model.persistencelayer.api.IEventoDAO;
+import es.pue.eventos.presentationlayer.broadcastreceiver.RestEventBroadcastReceiver;
 
 /**
  * Created by android-ed1 on 23/05/2016.
  */
 public class EventoDao implements IEventoDAO {
+
+    Context context;
+
+    public EventoDao(Context context){
+        this.context=context;
+    }
 
     @Override
     public void eventosSave(List<Evento> eventos) throws JSONException {
@@ -138,7 +147,11 @@ public class EventoDao implements IEventoDAO {
                 e.printStackTrace();
             }
 
-            send
+            Intent intent=new Intent();
+            intent.setAction("es.pue.eventos.Broadcast");
+            intent.putExtra(RestEventBroadcastReceiver.REST_RESULT_EXTRA,result);
+            Log.i("Rest EventoDAO","Sending Broadcast");
+            context.sendBroadcast(intent);
 
             return result;
         }

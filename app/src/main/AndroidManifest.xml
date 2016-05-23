@@ -40,6 +40,13 @@
         <activity
             android:name=".presentationlayer.activities.MapsActivity"
             android:label="@string/title_activity_maps"></activity>
+        <receiver android:name=".presentationlayer.broadcastreceiver.RestEventBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="es.pue.eventos.Broadcast"></action>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
